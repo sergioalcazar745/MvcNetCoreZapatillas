@@ -1,0 +1,17 @@
+﻿@model ModelPaginarZapatilla
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <ul class="list-group list-group-horizontal">
+            @for (int i = 1; i <= Model.NumeroRegistros; i++)
+            {
+                <li class="list-group-item list-group-item-success">
+                    <a href="/Zapatillas/_ImagenesZapatilla?idposicion=@i&idproducto=@Model.ImagenZapatilla.IdProducto">
+                        Página @i
+                    </a>
+                </li>
+            }
+        </ul>
+        <img src="@Model.ImagenZapatilla.Imagen" width="150" height="150"/>
+    </div>
+</div>

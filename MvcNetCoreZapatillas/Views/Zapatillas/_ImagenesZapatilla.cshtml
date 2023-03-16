@@ -1,0 +1,31 @@
+﻿@model ModelPaginarZapatilla
+
+@*@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $("button").click(function() {
+                var idposicion = $(this).data("idposicion");
+                var idproducto = $(this).data("idproducto");
+
+                $("#card").load("/Zapatillas/_DetallesZapatilla?idposicion="+idposicion+"&idproducto="+idproducto)
+            })
+        })
+    </script>
+}*@
+
+<div class="card" style="width: 18rem;" id="card">
+    <div class="card-body">
+        <ul class="list-group list-group-horizontal">
+            @for (int i = 1; i <= Model.NumeroRegistros; i++)
+            {
+                <li class="list-group-item list-group-item-success">
+                @*<a href="/Zapatillas/_ImagenesZapatilla?idposicion=@i&idproducto=@Model.ImagenZapatilla.IdProducto">
+                        @i
+                    </a>*@
+                    <button data-idposicion="@i" data-idproducto="@Model.ImagenZapatilla.IdProducto" onclick="hola(@i, @Model.ImagenZapatilla.IdProducto)" class="btn btn-success">@i</button>
+                </li>
+            }
+        </ul>
+        <img src="@Model.ImagenZapatilla.Imagen" width="150" height="150"/>
+    </div>
+</div>

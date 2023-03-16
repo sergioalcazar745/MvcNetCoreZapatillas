@@ -1,0 +1,61 @@
+﻿@model MvcNetCoreZapatillas.Models.Zapatilla
+
+@{
+    ViewData["Title"] = "DetallesZapatilla";
+}
+
+@{
+    int posicion = (int)ViewData["POSICION"];
+}
+
+@section Scripts{
+    <script>
+        $(document).ready(function() {
+            $("#imagenes").load("/Zapatillas/_ImagenesZapatilla?idposicion=@posicion&idproducto=@Model.IdProducto")
+        })
+
+        function hola(posicion, producto) {
+            $("#imagenes").load("/Zapatillas/_ImagenesZapatilla?idposicion=" +posicion+ "&idproducto="+producto)
+        }
+    </script>
+}
+
+    <h1>DetallesZapatilla</h1>
+
+    <div>
+        <h4>Zapatilla</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IdProducto)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IdProducto)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Descripcion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Precio)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Precio)
+            </dd>
+        </dl>
+    </div>
+    <div id="imagenes"></div>
+    <div>
+        <a asp-action="Zapatillas">Back to List</a>
+    </div>
+@*    <div>
+        <a asp-action="Imagenes" asp-route-idposicion="1" asp-route-idproducto="@Model.IdProducto">Imagenes</a>
+    </div>*@
