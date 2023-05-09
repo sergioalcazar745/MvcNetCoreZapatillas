@@ -3,12 +3,21 @@ using MvcNetCoreZapatillas.Data;
 using MvcNetCoreZapatillas.Repositories;
 using MvcNetCoreZapatillas.Data;
 using MvcNetCoreZapatillas.Repositories;
+using Microsoft.Extensions.Azure;
+using Azure.Security.KeyVault.Secrets;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAzureClients(factory =>
+{
+    factory.AddSecretClient(builder.Configuration.GetSection("KeyVault"));
+});
+
+SecretClient secretClient = builder.Services.BuildServiceProvider().GetService<SecretClient>();
+KeyVaultSecret keyVaultSecret = await secretClient.GetSecretAsync("SqlAzure");
+
 // Add services to the container.
-string connectionString =
-    builder.Configuration.GetConnectionString("SqlHospital");
+string connectionString = keyVaultSecret.Value;
 builder.Services.AddTransient<RepositoryZapatillas>();
 builder.Services.AddDbContext<ZapatillasContext>
     (options => options.UseSqlServer(connectionString));
